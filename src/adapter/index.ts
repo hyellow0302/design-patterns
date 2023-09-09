@@ -1,5 +1,6 @@
 // 아이폰 8핀 충전기로 갤럭시 폰을 충전할 수 있을까?! 타입전환 어댑터를 이용할 수 밖에 ~~
 
+/*************** Target ****************/
 abstract class Charge {
   constructor(protected deviceApple: string) {}
 
@@ -48,6 +49,7 @@ class airpods extends Charge {
   }
 }
 
+/*************** Adaptee ****************/
 class galaxy {
   battery = 10;
   private deviceSamsung: string;
@@ -71,6 +73,7 @@ class galaxy {
   }
 }
 
+/*************** Adapter ****************/
 class GalaxyAdapter extends Charge {
   private galaxy: galaxy;
 
@@ -84,6 +87,8 @@ class GalaxyAdapter extends Charge {
     this.galaxy.Ctype_Charge();
   }
 }
+
+/*************** Client ****************/
 
 const chargeList = Array<Charge>();
 chargeList.push(new iphone("아이폰14"));

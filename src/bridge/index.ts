@@ -1,4 +1,4 @@
-/*************** 기능 계층 ***************/
+/*************** 추상 계층 ***************/
 
 class Shape {
   constructor(private vertax: number) {}
@@ -23,7 +23,7 @@ class configShape extends Shape {
 
   getConfigShape(): string {
     let result = "꼭짓점이 3개이상이므로 도형이 맞습니다.";
-    let v = this.getVertax();
+    let v = super.getVertax();
 
     if (v < 3) {
       result = "꼭짓점이 2개이하이므로 도형이 아닙니다.";

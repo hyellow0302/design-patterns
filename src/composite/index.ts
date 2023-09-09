@@ -1,14 +1,14 @@
 /*********** Component ************/
 
 abstract class Component {}
-
 abstract class Component2 {}
 
-/*********** Leaf *********** file */
+/*********** Leaf ************/
 
 class myFile extends Component {}
 
 /*********** Composite ************/
+
 class myFolder extends Component {
   private components: Array<Component> = [];
 
