@@ -1,22 +1,22 @@
 /***** Component *******/
 
-interface DecoratorComponent {
+interface Component {
   deco(): string; // 옷을 입혀주자
 }
 
 /***** ConcreteComponent *******/
 
-class ConcreteComponent implements DecoratorComponent {
+class ConcreteComponent implements Component {
   deco(): string {
     return "검은콩으로 눈코입을 붙여줍니다.";
   }
 }
 
 /****** Decorator ********/
-abstract class Decorator implements DecoratorComponent {
-  private snowmanComponent: DecoratorComponent;
+abstract class Decorator implements Component {
+  private snowmanComponent: Component;
 
-  constructor(snowmanComponent: DecoratorComponent) {
+  constructor(snowmanComponent: Component) {
     this.snowmanComponent = snowmanComponent;
   }
   deco(): string {
@@ -26,7 +26,7 @@ abstract class Decorator implements DecoratorComponent {
 
 /* 꾸며줄 재료들 */
 class Muffler extends Decorator {
-  constructor(snowmanComponent: DecoratorComponent) {
+  constructor(snowmanComponent: Component) {
     super(snowmanComponent);
   }
 
@@ -36,7 +36,7 @@ class Muffler extends Decorator {
 }
 
 class Cap extends Decorator {
-  constructor(snowmanComponent: DecoratorComponent) {
+  constructor(snowmanComponent: Component) {
     super(snowmanComponent);
   }
 
