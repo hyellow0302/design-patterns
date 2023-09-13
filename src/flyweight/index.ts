@@ -14,20 +14,15 @@ interface Doll {
  * *****************/
 
 class BaseDoll implements Doll {
-  private shape: string;
-  private clothes: string; // 매번 바뀌는 옷
+  private shape: string; // intrinsicState
 
   constructor(shape: string) {
     this.shape = shape;
   }
 
-  setClothes(clothes: string): void {
-    this.clothes = clothes;
-  }
-
   produce(): void {
     return console.log(
-      `${this.shape}모양인 인형을 제작했습니다. 이번 시즌에는 ${this.clothes} 옷을 입도록 제작했습니다. \n -----------------------------------------------------------`
+      `${this.shape}모양인 인형을 제작 완료했습니다. \n -----------------------------------------------------------`
     );
   }
 }
@@ -44,31 +39,16 @@ class DollFactory {
   // getFlyweight();
   public static getDoll(shape: string): Doll {
     if (shape in this.cache) {
-      console.log("기존에 이미 제작했던 인형입니다. 다시 제작 중 ..... ");
+      console.log("기존에 이미 제작했던 인형모양입니다. 다시 제작 중 ..... ");
       return this.cache[shape];
     } else {
-      console.log("새로 기획된 인형입니다. 제작 중 .....");
+      console.log("새로 기획된 인형양입니다. 제작 중 .....");
       const newBase = new BaseDoll(shape);
-
       this.cache[shape] = newBase;
-
       return newBase;
     }
   }
 }
 
 /**************** Client *****************/
-const basicDoll = new Doll(DollFactory.getDoll("곰돌이, 하얀색"), "물고기");
-basicDoll.getClothe();
-
-const basicDoll2 = new Doll(DollFactory.getDoll("곰돌이, 하얀색"), "흰곰");
-basicDoll2.getClothe();
-
-const basicDoll3 = new Doll(DollFactory.getDoll("곰돌이, 하얀색"), "문어");
-basicDoll3.getClothe();
-
-const basicDoll4 = new Doll(
-  DollFactory.getDoll("고양이, 파란색과 하얀색이 섞인색"),
-  "고양이"
-);
-basicDoll4.getClothe();
+const basicDoll = DollFactory.getDoll("곰돌이모양");
