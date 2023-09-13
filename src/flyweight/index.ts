@@ -1,55 +1,59 @@
 /****************
- * FlyweightFactory
- * 만일 객체가 메모리에 존재하면 그대로 가져와 반환하고, 없다면 새로 생성해 반환한다
+ * Flyweight
+ * 공유에 사용할 클래스의 인터페이스 제공
  * *****************/
 
-class BaseDoll {
-  public shape: string; // 모양 - 곰도리가 거의 고정
-  public color: string; // 색 - 흰색이 거의 고정
-
-  constructor(shape: string, color: string) {
-    this.shape = shape;
-    this.color = color;
-  }
+interface Doll {
+  // method(extrinsicState)
+  produce(): void;
 }
 
-class DollFactory {
-  // 캐시를 저장하는 곳: 자주 변하지 않는 Font 정보를 저장합니다.
-  private static cache: { [base: string]: BaseDoll } = {};
+/****************
+ * ConcreteFlyweight
+ * Flyweight의 내용을 정의합니다. 실제 공유될 객체입니다.
+ * *****************/
 
-  public static getDoll(base: string): BaseDoll {
-    // 캐시가 존재한다면 해당 캐시에서 폰트를 반환합니다.
-    if (base in this.cache) {
-      console.log("기존에 이미 제작했던 인형입니다. 다시 제작 중 ..... ");
-      return this.cache[base];
-    } else {
-      // 캐시가 존재하지 않는다면 캐시에 해당 값을 저장하고 반환합니다.
-      const split = base.split(", ");
-      const newBase = new BaseDoll(split[0], split[1]);
-
-      this.cache[base] = newBase;
-      console.log("새로 기획된 인형입니다. 제작 중 .....");
-      /// console.log(this.cache);
-      return newBase;
-    }
-  }
-}
-
-/**************** Flyweight *****************/
-
-class Doll {
-  private info: BaseDoll; // 자주 바뀌지않는 캐시된 인형 모양과 색
+class BaseDoll implements Doll {
+  private shape: string;
   private clothes: string; // 매번 바뀌는 옷
 
-  constructor(info: BaseDoll, clothes: string) {
-    this.info = info;
+  constructor(shape: string) {
+    this.shape = shape;
+  }
+
+  setClothes(clothes: string): void {
     this.clothes = clothes;
   }
 
-  getClothe(): void {
+  produce(): void {
     return console.log(
-      `${this.info.color}을 가진 ${this.info.shape}모양인 인형을 제작했습니다. 이번 시즌에는 ${this.clothes} 옷을 입도록 제작했습니다. \n -----------------------------------------------------------`
+      `${this.shape}모양인 인형을 제작했습니다. 이번 시즌에는 ${this.clothes} 옷을 입도록 제작했습니다. \n -----------------------------------------------------------`
     );
+  }
+}
+
+/****************
+ * ConcreteFlyweight
+ * 해당 공장을 사용해서 Flyweight의 객체를 생성하고 관리해주는 역할
+ * *****************/
+
+class DollFactory {
+  // flyweightCollection
+  private static cache: { [shape: string]: BaseDoll } = {};
+
+  // getFlyweight();
+  public static getDoll(shape: string): Doll {
+    if (shape in this.cache) {
+      console.log("기존에 이미 제작했던 인형입니다. 다시 제작 중 ..... ");
+      return this.cache[shape];
+    } else {
+      console.log("새로 기획된 인형입니다. 제작 중 .....");
+      const newBase = new BaseDoll(shape);
+
+      this.cache[shape] = newBase;
+
+      return newBase;
+    }
   }
 }
 
