@@ -40,15 +40,24 @@ class DollFactory {
   public static getDoll(shape: string): Doll {
     if (shape in this.cache) {
       console.log("기존에 이미 제작했던 인형모양입니다. 다시 제작 중 ..... ");
+      console.log(this.cache);
+      console.log("\n");
       return this.cache[shape];
     } else {
-      console.log("새로 기획된 인형양입니다. 제작 중 .....");
+      console.log("새로 기획된 인형모양입니다. 제작 중 .....");
       const newBase = new BaseDoll(shape);
       this.cache[shape] = newBase;
+      console.log(this.cache);
+      console.log("\n");
       return newBase;
     }
   }
 }
 
 /**************** Client *****************/
-const basicDoll = DollFactory.getDoll("곰돌이모양");
+const basicDoll1 = DollFactory.getDoll("곰돌이모양");
+const basicDoll2 = DollFactory.getDoll("곰돌이모양");
+const basicDoll3 = DollFactory.getDoll("토끼모양");
+const basicDoll4 = DollFactory.getDoll("토끼모양");
+const basicDoll5 = DollFactory.getDoll("햄스터모양");
+const basicDoll6 = DollFactory.getDoll("햄스터모양");
